@@ -6,8 +6,8 @@ app = Flask(__name__)
 def index():
     return render_template('index.html')
 
-@app.route("/detect",methods=['GET','POST'])
-def detect():
-    text= request.form.get('input_field')
-    result = detect_ai(text)
-    return render_template("process.html", result=result)
+@app.route("/process",methods=['POST'])
+def process():
+    data = request.form.get('data')
+    result = detect_ai(data)
+    return str(result)

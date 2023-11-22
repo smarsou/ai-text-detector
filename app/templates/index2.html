@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script> 
+        <link rel="stylesheet" href="static/index.css">
+    </head>
+    <body>
+        <h1> Detect AI X account</h1>
+        <input type="text" id="input"> 
+        <button onclick="sendData()">Send Data</button> 
+        <div id="output"></div> 
+        <script> 
+            function sendData() { 
+                var value = document.getElementById('input').value;
+                document.getElementById('output').innerHTML = "loading..."
+                $.ajax({ 
+                    url: '/process', 
+                    type: 'POST', 
+                    data: { 'data': value }, 
+                    success: function(response) { 
+                        document.getElementById('output').innerHTML = response.toString(); 
+                    }, 
+                    error: function(error) { 
+                        console.log(error); 
+                    } 
+                }); 
+            } 
+        </script> 
+    </body>
+</html>
