@@ -6,7 +6,7 @@ html{
 
   .container {
     margin: 20px auto;
-    width: 500px;
+    width: 60%;
     text-align: center;
   }
 
@@ -29,7 +29,7 @@ html{
     background-color: var(--color);
     width: var(--value);
     background-image: linear-gradient(45deg, var(--color) 25%, transparent 25%, transparent 50%, var(--color) 50%, var(--color) 75%, transparent 75%, transparent);
-    animation: progressAnimationStrike 6s;
+    animation: progressAnimationStrike 3s;
   }
   
   @keyframes progressAnimationStrike {

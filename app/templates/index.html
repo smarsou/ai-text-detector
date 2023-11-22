@@ -70,9 +70,12 @@
     </div>
   </div>
   <div id="mess_box">
-    <div id="mess_score"></div>
-    <div class="container" id="score"></div>
     <div id="mess"></div>
+    <div id="box1">
+      <div id="mess_score"></div>
+      <div class="container" id="score"></div>
+      
+    </div>
   </div>
   
 
@@ -82,6 +85,7 @@
     function sendData() {
         var value = document.getElementById('input').value;
         document.getElementById('output').style.display = "block";
+        document.getElementById('mess_box').style.display="none";
         document.getElementById('output').innerHTML = "Detecting...";
         document.getElementById('loaderid').style.display = "inline";
         document.getElementById('submitbutton').style.display = "none";
@@ -96,12 +100,15 @@
             type: 'POST', 
             data: { 'data': value }, 
             success: function(response) { 
+                document.getElementById('mess_box').style.display="block";
                 if (response.int >= 70){
                   document.getElementById('mess').style.color= "green";
+                  document.getElementById('mess_score').style.color = "green";
                   document.getElementById('mess').innerHTML = "This text seems to be human written.";
                   htmlSelector.style.setProperty('--color', "green");
                 }else{
                   document.getElementById('mess').style.color= "orange";
+                  document.getElementById('mess_score').style.color = "orange";
                   document.getElementById('mess').innerHTML = "This text seems to be AI generated.";
                   htmlSelector.style.setProperty('--color', "orange");
                 }
