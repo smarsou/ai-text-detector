@@ -10,6 +10,8 @@
   <link rel="stylesheet" href="static/paper.css">
   <link rel="stylesheet" href="static/button.css">
   <link rel="stylesheet" href="static/loader.css">
+  <link rel="stylesheet" href="static/score.css">
+
   <script src="https://cdnjs.cloudflare.com/ajax/libs/prefixfree/1.0.7/prefixfree.min.js"></script>
 
 </head>
@@ -31,66 +33,91 @@
     </div>
     <div class="paper" id="feuille">
       <div class="paper-content">
-          <textarea id="input" placeholder="Hey !&#10;Paste your essay here to detect if it is written by an LLM or a human." autofocus></textarea>
+          <textarea id="input" placeholder="Hey !&#10;&#10;Paste your essay here to detect if it is written by an LLM or a human.&#10; &#10; The model accept english text and was train on essay's dataset. &#10;&#10; If your text is not an essay, the result may not be good. &#10;&#10; Click on the logo on the top left corner to read more details. &#10;&#10; TN team n°6" autofocus></textarea>
       </div>
     </div>
     <button class="button-19" id="submitbutton" onclick="sendData()">Start detection</button> 
-      
-
   </div>
-  <div id="output"></div>
-  <div class="loader" id="loaderid">
-    <div class="dot"></div>
-    <div class="dot"></div>
-    <div class="dot"></div>
-    <div class="dot"></div>
-    <div class="dot"></div>
-    <div class="dot"></div>
-    <div class="dot"></div>
-    <div class="dot"></div>
-    <div class="dot"></div>
-    <div class="dot"></div>
-    <div class="dot"></div>
-    <div class="dot"></div>
-    <div class="dot"></div>
-    <div class="dot"></div>
-    <div class="dot"></div>
-    <div class="dot"></div>
-    <div class="dot"></div>
-    <div class="dot"></div>
-    <div class="dot"></div>
-    <div class="dot"></div>
-    <div class="dot"></div>
-    <div class="dot"></div>
-    <div class="dot"></div>
-    <div class="dot"></div>
-    <div class="dot"></div>
-    <div class="dot"></div>
+  <div id="output_box">
+    <div id="output"></div>
+    <div class="loader" id="loaderid">
+      <div class="dot"></div>
+      <div class="dot"></div>
+      <div class="dot"></div>
+      <div class="dot"></div>
+      <div class="dot"></div>
+      <div class="dot"></div>
+      <div class="dot"></div>
+      <div class="dot"></div>
+      <div class="dot"></div>
+      <div class="dot"></div>
+      <div class="dot"></div>
+      <div class="dot"></div>
+      <div class="dot"></div>
+      <div class="dot"></div>
+      <div class="dot"></div>
+      <div class="dot"></div>
+      <div class="dot"></div>
+      <div class="dot"></div>
+      <div class="dot"></div>
+      <div class="dot"></div>
+      <div class="dot"></div>
+      <div class="dot"></div>
+      <div class="dot"></div>
+      <div class="dot"></div>
+      <div class="dot"></div>
+      <div class="dot"></div>
+    </div>
   </div>
-
+  <div id="mess_box">
+    <div id="mess_score"></div>
+    <div class="container" id="score"></div>
+    <div id="mess"></div>
+  </div>
+  
 
 
 
   <script> 
-    function sendData() { 
+    function sendData() {
         var value = document.getElementById('input').value;
-        document.getElementById('output').innerHTML = "Loading...";
+        document.getElementById('output').style.display = "block";
+        document.getElementById('output').innerHTML = "Detecting...";
         document.getElementById('loaderid').style.display = "inline";
         document.getElementById('submitbutton').style.display = "none";
-        // document.getElementById('feuille').style.display = "none";
+        var tokill = document.getElementById('tokill');
+        if (tokill != null){
+          tokill.remove();
+        }
 
+        const htmlSelector = document.querySelector('html');
         $.ajax({
             url: '/process', 
             type: 'POST', 
             data: { 'data': value }, 
             success: function(response) { 
-                document.getElementById('output').innerHTML = response.toString(); 
+                if (response.int >= 70){
+                  document.getElementById('mess').style.color= "green";
+                  document.getElementById('mess').innerHTML = "This text seems to be human written.";
+                  htmlSelector.style.setProperty('--color', "green");
+                }else{
+                  document.getElementById('mess').style.color= "orange";
+                  document.getElementById('mess').innerHTML = "This text seems to be AI generated.";
+                  htmlSelector.style.setProperty('--color', "orange");
+                }
+                htmlSelector.style.setProperty('--value', response.int.toString() + "%");
+                document.getElementById('mess_score').innerHTML = response.int.toString() + " %";
+                document.getElementById('score').innerHTML = "<div class='progress progress-striped' id='tokill'><div class='progress-bar'></div></div>"
+                document.getElementById('loaderid').style.display = "none";
+                document.getElementById('output').style.display = "none";
+                document.getElementById('submitbutton').style.display = "inline";
             }, 
             error: function(error) { 
                 console.log(error); 
             } 
         }); 
     } 
+    
   </script>
 </body>
 </html>

@@ -1,5 +1,5 @@
 import time
 
 def detect_ai(text):
-    time.sleep(3)
+    time.sleep(1)
     return True

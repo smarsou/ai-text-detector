@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, jsonify
 from detection import detect_ai
 app = Flask(__name__)
 
@@ -10,4 +10,4 @@ def index():
 def process():
     data = request.form.get('data')
     result = detect_ai(data)
-    return str(result)
+    return jsonify({'int': 65})
