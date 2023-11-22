@@ -74,7 +74,7 @@ html {
   text-align:center;
   font-family: din-round,sans-serif;
   font-weight: 300;
-  font-size: 30px;
+  font-size: 25px;
   letter-spacing: 5px;
 }
 
@@ -90,7 +90,7 @@ html {
 #mess_score{
   font-family: "lato", sans-serif;
   font-weight: 700;
-  font-size: xx-large;
+  font-size: 25px;
 }
 
 #output_box{

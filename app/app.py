@@ -10,4 +10,4 @@ def index():
 def process():
     data = request.form.get('data')
     result = detect_ai(data)
-    return jsonify({'int': 65})
+    return jsonify({'int': 75})
