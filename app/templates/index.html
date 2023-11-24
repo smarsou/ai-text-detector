@@ -26,12 +26,12 @@
       </span>
       <br>
       <span id="bigtitle">
-        DETECT AI GENERATED ESSAY
+        AI GENERATED TEXT DETECTOR
       </span>
     </div>
     <div class="paper" id="feuille">
       <div class="paper-content">
-          <textarea id="input" placeholder="Hey !&#10;&#10;Paste your essay here to detect if it is written by an LLM or a human.&#10; &#10; The model accept english text and was train on essay's dataset. &#10;&#10; If your text is not an essay, the result may not be good. &#10;&#10; Click on the logo on the top left corner to read more details. &#10;&#10; TN team n°6" autofocus></textarea>
+          <textarea id="input" placeholder="Welcome to our AI GENERATED TEXT DETECTOR ! &#10;&#10;Simply write or paste your text, and our tool will analyze it to provide a 'Human-Written Likelihood Score.'&#10;&#10;This score indicates how likely it is that the text was written by a human. The higher the score, the more probable it is that a person authored the text. &#10;&#10;Give it a try and see the results!" autofocus></textarea>
       </div>
     </div>
     <button class="button-19" id="submitbutton" onclick="sendData()">Start detection</button> 
@@ -75,8 +75,6 @@
       
     </div>
   </div>
-  
-
 
 
   <script> 
@@ -104,14 +102,19 @@
                   document.getElementById('mess_score').style.color = "green";
                   document.getElementById('mess').innerHTML = "This text seems to be human written.";
                   htmlSelector.style.setProperty('--color', "green");
-                }else{
+                }else if(response.int >= 40){
                   document.getElementById('mess').style.color= "orange";
                   document.getElementById('mess_score').style.color = "orange";
-                  document.getElementById('mess').innerHTML = "This text seems to be AI generated.";
+                  document.getElementById('mess').innerHTML = "This text could be AI generated.";
                   htmlSelector.style.setProperty('--color', "orange");
+                }else{
+                  document.getElementById('mess').style.color= "red";
+                  document.getElementById('mess_score').style.color = "red";
+                  document.getElementById('mess').innerHTML = "This text seems to be AI generated.";
+                  htmlSelector.style.setProperty('--color', "red");
                 }
                 htmlSelector.style.setProperty('--value', response.int.toString() + "%");
-                document.getElementById('mess_score').innerHTML = response.int.toString() + " %";
+                document.getElementById('mess_score').innerHTML = "Human-Written Likelihood Score : " + response.int.toString() + " %";
                 document.getElementById('score').innerHTML = "<div class='progress progress-striped' id='tokill'><div class='progress-bar'></div></div>"
                 document.getElementById('loaderid').style.display = "none";
                 document.getElementById('output').style.display = "none";
