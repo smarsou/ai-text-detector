@@ -5,7 +5,11 @@ import fasttext
 import re
 from nltk.corpus import stopwords
 from nltk.stem import WordNetLemmatizer
-from init import *
+
+embedding_model = fasttext.load_model('model/fasttext.bin')
+lemmatizer = WordNetLemmatizer()
+with open('model/random_forest_bigdataset.pkl', 'rb') as file:
+    best_model = pickle.load(file)
 
 def clean(prompt):
     r = re.sub('[^a-zA-Z]', ' ', str(prompt))
