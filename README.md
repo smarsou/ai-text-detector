@@ -24,3 +24,6 @@ Voici les compétences acquises que reflète ce projet :
 - Implémentation d'application web Flask (Python).
 - Nettoyage et traitement de données de type texte (NLP)
 - Déploiement de petit modèle IA via le backend géré par Flask.
+
+
+# Training 
