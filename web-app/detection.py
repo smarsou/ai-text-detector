@@ -5,7 +5,9 @@ import fasttext
 import re
 from nltk.corpus import stopwords
 from nltk.stem import WordNetLemmatizer
+import nltk
 
+nltk.download('all')
 embedding_model = fasttext.load_model('model/fasttext.bin')
 lemmatizer = WordNetLemmatizer()
 with open('model/random_forest_bigdataset.pkl', 'rb') as file:
