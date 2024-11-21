@@ -3,3 +3,4 @@ Code_Soulaïman.ipynb
 unbalanced_training.ipynb
 word2vec.model
 model/*
+*.bin
