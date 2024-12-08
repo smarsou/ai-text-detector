@@ -29,6 +29,7 @@
         AI GENERATED TEXT DETECTOR
       </span>
     </div>
+    <p style="color:red;" >Attention: The deployed application uses a model that has been truncated by 75% from the originally trained version. As a result, its performance may not meet the expectations for production-level use.</p>
     <div class="paper" id="feuille">
       <div class="paper-content">
           <textarea id="input" placeholder="Welcome to our AI GENERATED TEXT DETECTOR ! &#10;&#10;Simply write or paste your text, and our tool will analyze it to provide a 'Human-Written Likelihood Score.'&#10;&#10;This score indicates how likely it is that the text was written by a human. The higher the score, the more probable it is that a person authored the text. &#10;&#10;Give it a try and see the results!" autofocus></textarea>
@@ -78,13 +79,26 @@
 
 
   <script> 
+
+    function startLoadingAnimation() {
+      document.getElementById('output').style.display = "block";
+      document.getElementById('mess_box').style.display="none";
+      document.getElementById('output').innerHTML = "Detecting...";
+      document.getElementById('loaderid').style.display = "inline";
+      document.getElementById('submitbutton').style.display = "none";
+    }
+
+    function stopLoadingAnimation() {
+      document.getElementById('loaderid').style.display = "none";
+      document.getElementById('output').style.display = "none";
+      document.getElementById('submitbutton').style.display = "inline";
+    }
+
+
     function sendData() {
         var value = document.getElementById('input').value;
-        document.getElementById('output').style.display = "block";
-        document.getElementById('mess_box').style.display="none";
-        document.getElementById('output').innerHTML = "Detecting...";
-        document.getElementById('loaderid').style.display = "inline";
-        document.getElementById('submitbutton').style.display = "none";
+        startLoadingAnimation();
+        
         var tokill = document.getElementById('tokill');
         if (tokill != null){
           tokill.remove();
@@ -93,9 +107,9 @@
         const htmlSelector = document.querySelector('html');
         $.ajax({
             url: '{{proxy_url_path}}/process', 
-            type: 'POST', 
-            data: { 'data': value }, 
-            success: function(response) { 
+            type: 'POST',
+            data: { 'data': value },
+            success: function(response) {
                 document.getElementById('mess_box').style.display="block";
                 if (response.int >= 70){
                   document.getElementById('mess').style.color= "green";
@@ -115,15 +129,14 @@
                 }
                 htmlSelector.style.setProperty('--value', response.int.toString() + "%");
                 document.getElementById('mess_score').innerHTML = "Human-Written Likelihood Score : " + response.int.toString() + " %";
-                document.getElementById('score').innerHTML = "<div class='progress progress-striped' id='tokill'><div class='progress-bar'></div></div>"
-                document.getElementById('loaderid').style.display = "none";
-                document.getElementById('output').style.display = "none";
-                document.getElementById('submitbutton').style.display = "inline";
+                document.getElementById('score').innerHTML = "<div class='progress progress-striped' id='tokill'><div class='progress-bar'></div></div>";
+                stopLoadingAnimation();
             }, 
             error: function(error) { 
-                console.log(error); 
-            } 
-        }); 
+                console.log(error);
+                stopLoadingAnimation();
+            }
+        });
     } 
     
   </script>

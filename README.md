@@ -4,13 +4,18 @@ This AI-focused hackathon spanned a 4-day week. Our team of three members was ta
 
 We chose to create an AI-generated essay detector, a tool designed to help educators identify if a student used ChatGPT to write their essay.
 
-For this project, we worked with a dataset of 17,000 English essays, some authored by an AI and others by real students. We processed the data using NLP techniques and trained a model. This model was deployed via a Flask application, located in the `app/` folder.
+For this project, we worked with a dataset of 17,000 English essays, some authored by an AI and others by real students. We processed the data using NLP techniques and trained a model. This model was deployed via a Flask application, located in the `web-app/` folder.
 
 The project is divided into two parts:
 1. **Data exploration and AI model training**
 2. **Model deployment as a REST API using Flask**
 
 Special thanks to Leo Taverne and Serge Tehe for collaborating on this project.
+## Try the app !
+You can try the app here : https://smarsou.fr/lab/hackaton
+<p style="color:red;" >Attention: The deployed application uses a model that has been truncated by 75% from the originally trained version. As a result, its performance may not meet the expectations for production-level use.</p>
+
+<img src=".github/static/main.png" width="800"/>
 
 ---
 

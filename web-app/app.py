@@ -8,7 +8,7 @@ proxy_url_path="/lab/hackaton"
 def index():
     return render_template('index.html', proxy_url_path=proxy_url_path)
 
-@app.route(proxy_url_path + "/process",methods=['POST'])
+@app.route(proxy_url_path + "/process", methods=['POST'])
 def process():
     data = request.form.get('data')
     result = detection.detect_ai(data)
